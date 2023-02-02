@@ -1,0 +1,36 @@
+.cathegory {
+    height: 250px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cathegory a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.cathegory a span {
+    width: 30%;
+    height: 80px;
+    backdrop-filter: blur(8px);
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin: 0 auto;
+    line-height: 80px;
+    text-align: center;
+    transition: 0.5s;
+}
+.cathegory a span:hover{
+    background-color: var(--white);
+}
