@@ -37,6 +37,9 @@
     transition: 0.5s;
     cursor: pointer;
     border-color: var(--brown);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .Sign_up form .field input {
@@ -55,4 +58,11 @@
 .Sign_up form .txt{
     text-align: center;
     margin-top: 50px;
+}
+.Sign_up form .btn svg{
+    height: 20px;
+    margin-right: 8px;
+    width: 20px;
+    fill: 
+    var(--black);
 }
