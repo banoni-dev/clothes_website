@@ -1,37 +1,100 @@
 import React from 'react'
 import './signUp.css'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from '../../utils/firebase/firebase.utils'
+
+const defaultFormFields = {
+  displayName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+}
 
 export default function SignUp() {
+
+
+    const [formFields, setFormFields] = useState(defaultFormFields);
+    const { displayName, email, password, confirmPassword } = formFields;
+  
+    const resetFormFields = () => {
+      setFormFields(defaultFormFields);
+    };
+  
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+  
+      if (password !== confirmPassword) {
+        alert('passwords do not match');
+        return;
+      }
+  
+      try {
+        const { user } = await createAuthUserWithEmailAndPassword(
+          email,
+          password
+        );
+  
+        await createUserDocumentFromAuth(user, { displayName });
+        resetFormFields();
+      } catch (error) {
+        if (error.code === 'auth/email-already-in-use') {
+          alert('Cannot create user, email already in use');
+        } else {
+          console.log('user creation encountered an error', error);
+        }
+      }
+    };
+  
+    const handleChange = (event) => {
+      const { name, value } = event.target;
+  
+      setFormFields({ ...formFields, [name]: value });
+    };
+  
+
+
+
   return (
-    <div className='Sign_up'>
-        <form>
-            <div className="field">
-                <label>Username</label>
-                <div><input type="username" /></div>
-            </div>
-            <div className="field">
-                <label>Email</label>
-                <div><input type="email" /></div>
-            </div>
-            <div className="field">
-                <label>Password</label>
-                <div><input type="password" /></div>
-            </div>
-            <div className="btn">
-                <button>Submit</button>
-            </div>
-            <div className="btn">
-                <button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg>Sign up with Google</button>
-            </div>
-
-
-
-
-
-
-            <div className="txt">You already have account then <Link to="../sign-in">Sign in</Link></div>
-        </form>
+    <div className="Sign_up">
+      <form onSubmit={handleSubmit}>
+        <div className="field">
+          <label>Username</label>
+          <div>
+            <input required onChange={handleChange} type="text"   name='displayName' value={displayName} />
+          </div>
+        </div>
+        <div className="field">
+          <label>Email</label>
+          <div>
+            <input required onChange={handleChange} type="email"  name='email'
+          value={email}/>
+          </div>
+        </div>
+        <div className="field">
+          <label>Password</label>
+          <div>
+            <input required onChange={handleChange} type="password" name='password'
+          value={password}/>
+          </div>
+        </div>
+        <div className="field">
+          <label>Confirm password</label>
+          <div>
+            <input required onChange={handleChange} type="password" name='confirmPassword'
+          value={confirmPassword}/>
+          </div>
+        </div>
+        <div className="btn">
+          <button>Submit</button>
+        </div>
+        <div className="txt">
+          You already have account then <Link to="../sign-in">Sign in</Link>
+        </div>
+      </form>
     </div>
   )
 }

@@ -2,11 +2,20 @@ import React from 'react'
 import './signIn.css'
 import { Link } from 'react-router-dom'
 import { signInWithGooglePopup,createUserDocumentFromAuth} from '../../utils/firebase/firebase.utils'
+
+
+
+
+
+
+
+
 export default function SignIn() {
   const logGoogleUser = async () => {
     const {user} = await signInWithGooglePopup();
     const userDocRef = await createUserDocumentFromAuth(user);
   }
+
   return (
     <div className="sign_in">
       <div className="form">
