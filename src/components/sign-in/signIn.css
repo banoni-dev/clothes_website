@@ -4,7 +4,7 @@
     position: relative;
 }
 
-.sign_in .form {
+.sign_in form {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -13,11 +13,11 @@
     width: 650px;
 }
 
-.sign_in .form>div {
+.sign_in form>div {
     margin-top: 20px;
 }
 
-.sign_in .form>div * {
+.sign_in form>div * {
     width: 100%;
     
     border-style: none;
@@ -25,11 +25,11 @@
     font-size: 18px;
 }
 
-.sign_in .form .btn {
+.sign_in form .btn {
     margin-top: 40px;
 }
 
-.sign_in .form .btn button {
+.sign_in form .btn button {
     background-color: var(--brown);
     color: white;
     padding: 4px 0;
@@ -42,24 +42,24 @@
     align-items: center;
 }
 
-.sign_in .form .field input {
+.sign_in form .field input {
     color: var(--black);
     padding:4px 8px;
     border-radius: 8px;
 }
-.sign_in .form .btn button:hover{
+.sign_in form .btn button:hover{
     color: var(--black);
     font-weight: bold;
     border-radius: 10px;
 }
-.sign_in .form .txt a{
+.sign_in form .txt a{
     color: var(--yellow);
 }
-.sign_in .form .txt{
+.sign_in form .txt{
     text-align: center;
     margin-top: 50px;
 }
-.sign_in .form .btn svg{
+.sign_in form .btn svg{
     height: 20px;
     margin-right: 8px;
     width: 20px;
