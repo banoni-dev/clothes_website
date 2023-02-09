@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import './signIn.css'
 import { Link } from 'react-router-dom'
 import { signInWithGooglePopup,createUserDocumentFromAuth,signInAuthUserWithEmailAndPassword} from '../../utils/firebase/firebase.utils'
 
+import { UserContext } from '../../contexts/user.context';
 const defaultFormFields = {
   email: '',
   password: '',
@@ -13,7 +14,7 @@ const defaultFormFields = {
 export default function SignIn() {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
-
+  const { setCurrentUser } = useContext(UserContext);
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -21,17 +22,19 @@ export default function SignIn() {
   const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
     await createUserDocumentFromAuth(user);
+    setCurrentUser(user);
+
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const {user} = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+      setCurrentUser(user);
       resetFormFields();
     } catch (error) {
       switch (error.code) {
